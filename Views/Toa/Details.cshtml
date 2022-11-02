@@ -1,0 +1,30 @@
+﻿@model BTL_CNPM.Models.Toa
+
+@{
+    ViewBag.Title = "Chi tiết tòa";
+    ViewBag.Controller = "Tòa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h4>Chi tiết tòa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+s            Tên tòa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenToa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    <a href="@Url.Action("Edit", "Toa", new { id = Model.Id })" style="margin-right:20px" class="btn btn-warning">
+        <span class="text-warning"><i class="fa-solid fa-pen-to-square"></i></span> Chỉnh sửa
+    </a>
+     @Html.ActionLink("Tở về danh sách", "Index", new { controller = "Toa" }, new { @class = "btn btn-primary" })
+</p>

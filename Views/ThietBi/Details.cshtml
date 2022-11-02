@@ -1,0 +1,76 @@
+﻿@model BTL_CNPM.Models.ThietBi
+
+@{
+    ViewBag.Title = "Chi tiết thiết bị";
+    ViewBag.Controller = "Thiết Bị";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ThietBi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoSerial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoSerial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoNamBaoHanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoNamBaoHanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayMua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayMua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhaCungCap.Ten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhaCungCap.Ten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phong.TenPhong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phong.TenPhong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThaiTB.TenTrangThai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrangThaiTB.TenTrangThai)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

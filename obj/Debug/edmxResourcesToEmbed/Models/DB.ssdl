@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QlyMayChieuEPUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="LoaiPhieu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLoaiPhieu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NguoiQuanLy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNQL" Type="nvarchar" MaxLength="30" />
+    <Property Name="TaiKhoan" Type="varchar" MaxLength="50" />
+    <Property Name="MatKhau" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="NhaCungCap">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="30" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="NhanVien">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNV" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="datetime" />
+    <Property Name="QueQuan" Type="nvarchar" MaxLength="20" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoDienThoai" Type="nvarchar" MaxLength="20" />
+    <Property Name="ChucVu" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Phieu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdThietBi" Type="bigint" />
+    <Property Name="IdNhanVien" Type="bigint" />
+    <Property Name="IdLoaiPhieu" Type="bigint" />
+    <Property Name="NgayLapPhieu" Type="bigint" />
+    <Property Name="ChiPhi" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Phieu_ThietBi">
+    <Key>
+      <PropertyRef Name="IdPhieu" />
+      <PropertyRef Name="IdThietBi" />
+    </Key>
+    <Property Name="IdPhieu" Type="bigint" Nullable="false" />
+    <Property Name="IdThietBi" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phong">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenPhong" Type="nvarchar" MaxLength="30" />
+    <Property Name="IdToa" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ThietBi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoSerial" Type="nvarchar" MaxLength="30" />
+    <Property Name="IdNhaCungCap" Type="bigint" />
+    <Property Name="SoNamBaoHanh" Type="int" />
+    <Property Name="NgayMua" Type="datetime" />
+    <Property Name="IdTrangThai" Type="bigint" />
+    <Property Name="IdPhong" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Toa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenToa" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TrangThaiTB">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenTrangThai" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_Phieu_LoaiPhieu">
+    <End Role="LoaiPhieu" Type="Self.LoaiPhieu" Multiplicity="0..1" />
+    <End Role="Phieu" Type="Self.Phieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiPhieu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phieu">
+        <PropertyRef Name="IdLoaiPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phieu_NhanVien">
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <End Role="Phieu" Type="Self.Phieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phieu">
+        <PropertyRef Name="IdNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phieu_ThietBi_NhaCungCap">
+    <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="1" />
+    <End Role="Phieu_ThietBi" Type="Self.Phieu_ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhaCungCap">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phieu_ThietBi">
+        <PropertyRef Name="IdThietBi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phieu_ThietBi_Phieu">
+    <End Role="Phieu" Type="Self.Phieu" Multiplicity="1" />
+    <End Role="Phieu_ThietBi" Type="Self.Phieu_ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phieu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phieu_ThietBi">
+        <PropertyRef Name="IdPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phong_Toa">
+    <End Role="Toa" Type="Self.Toa" Multiplicity="0..1" />
+    <End Role="Phong" Type="Self.Phong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Toa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Phong">
+        <PropertyRef Name="IdToa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThietBi_NhaCungCap">
+    <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="0..1" />
+    <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhaCungCap">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="IdNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThietBi_Phong">
+    <End Role="Phong" Type="Self.Phong" Multiplicity="0..1" />
+    <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phong">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="IdPhong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThietBi_TrangThaiTB">
+    <End Role="TrangThaiTB" Type="Self.TrangThaiTB" Multiplicity="0..1" />
+    <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrangThaiTB">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="IdTrangThai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QlyMayChieuEPUModelStoreContainer">
+    <EntitySet Name="LoaiPhieu" EntityType="Self.LoaiPhieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NhaCungCap" EntityType="Self.NhaCungCap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phieu" EntityType="Self.Phieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phieu_ThietBi" EntityType="Self.Phieu_ThietBi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phong" EntityType="Self.Phong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThietBi" EntityType="Self.ThietBi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Toa" EntityType="Self.Toa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TrangThaiTB" EntityType="Self.TrangThaiTB" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Phieu_LoaiPhieu" Association="Self.FK_Phieu_LoaiPhieu">
+      <End Role="LoaiPhieu" EntitySet="LoaiPhieu" />
+      <End Role="Phieu" EntitySet="Phieu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phieu_NhanVien" Association="Self.FK_Phieu_NhanVien">
+      <End Role="NhanVien" EntitySet="NhanVien" />
+      <End Role="Phieu" EntitySet="Phieu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phieu_ThietBi_NhaCungCap" Association="Self.FK_Phieu_ThietBi_NhaCungCap">
+      <End Role="NhaCungCap" EntitySet="NhaCungCap" />
+      <End Role="Phieu_ThietBi" EntitySet="Phieu_ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phieu_ThietBi_Phieu" Association="Self.FK_Phieu_ThietBi_Phieu">
+      <End Role="Phieu" EntitySet="Phieu" />
+      <End Role="Phieu_ThietBi" EntitySet="Phieu_ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phong_Toa" Association="Self.FK_Phong_Toa">
+      <End Role="Toa" EntitySet="Toa" />
+      <End Role="Phong" EntitySet="Phong" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_NhaCungCap" Association="Self.FK_ThietBi_NhaCungCap">
+      <End Role="NhaCungCap" EntitySet="NhaCungCap" />
+      <End Role="ThietBi" EntitySet="ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_Phong" Association="Self.FK_ThietBi_Phong">
+      <End Role="Phong" EntitySet="Phong" />
+      <End Role="ThietBi" EntitySet="ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_TrangThaiTB" Association="Self.FK_ThietBi_TrangThaiTB">
+      <End Role="TrangThaiTB" EntitySet="TrangThaiTB" />
+      <End Role="ThietBi" EntitySet="ThietBi" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BTL_CNPM.Models.Toa>
+
+@{
+    ViewBag.Title = "Danh sách tòa";
+    ViewBag.Controller = "Tòa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách tòa</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { controller = "Toa" }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên tòa
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenToa)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Toa", new { id = item.Id })" style="margin-right:20px">
+                <span class="text-warning"><i class="fa-solid fa-pen-to-square"></i></span>
+            </a>
+            <a href="@Url.Action("Details", "Toa", new { id = item.Id })" style="margin-right:20px">
+                <span class="text-info"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+            </a>
+            <a href="@Url.Action("Delete", "Toa", new { id = item.Id })" style="margin-right:20px">
+                <span class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></span>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
